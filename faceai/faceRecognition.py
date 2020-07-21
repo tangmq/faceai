@@ -8,7 +8,7 @@ path = "img/face_recognition"  # 模型数据图片目录
 cap = cv2.VideoCapture(0)
 total_image_name = []
 total_face_encoding = []
-for fn in os.listdir(path):  #fn 表示的是文件名q
+for fn in os.listdir(path):  #fn 表示的是文件名
     try:
         print(path + "/" + fn)
         total_face_encoding.append(
