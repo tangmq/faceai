@@ -9,15 +9,18 @@ cap = cv2.VideoCapture(0)
 total_image_name = []
 total_face_encoding = []
 for fn in os.listdir(path):  #fn 表示的是文件名q
-    print(path + "/" + fn)
-    total_face_encoding.append(
-        face_recognition.face_encodings(
-            face_recognition.load_image_file(path + "/" + fn))[0])
-    fn = fn[:(len(fn) - 4)]  #截取图片名（这里应该把images文件中的图片名命名为为人物名）
-    total_image_name.append(fn)  #图片名字列表
+    try:
+        print(path + "/" + fn)
+        total_face_encoding.append(
+            face_recognition.face_encodings(
+                face_recognition.load_image_file(path + "/" + fn))[0])
+        fn = fn[:(len(fn) - 4)]  #截取图片名（这里应该把images文件中的图片名命名为为人物名）
+        total_image_name.append(fn)  #图片名字列表
+    except IndexError:
+        print("I wasn't able to locate any faces in at least one of the images. Check the image files. Aborting...")
 while (1):
     ret, frame = cap.read()
-    # 发现在视频帧所有的脸和face_enqcodings
+    # 发现在视频帧所有的脸和face_encodings
     face_locations = face_recognition.face_locations(frame)
     face_encodings = face_recognition.face_encodings(frame, face_locations)
     # 在这个视频帧中循环遍历每个人脸
